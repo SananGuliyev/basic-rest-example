@@ -2,6 +2,7 @@
 
 namespace Webbala\Domain\Voucher;
 
+use Webbala\Domain\Models\Recipient;
 use Webbala\Domain\Models\Voucher;
 
 interface RepositoryInterface
@@ -37,4 +38,12 @@ interface RepositoryInterface
      * @return Voucher | object | null
      */
     public function getVoucherById(int $id);
+
+    /**
+     * @param string $code
+     * @param Recipient $recipient
+     *
+     * @return null|object|Voucher
+     */
+    public function getVoucherByCodeAndRecipient(string $code, Recipient $recipient);
 }

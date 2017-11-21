@@ -63,7 +63,10 @@ curl -X POST \
 
 #### Voucher checker by email & code
 ```
-curl 
+curl -X POST \
+  http://your.host/useVoucher \
+  -H 'content-type: application/json' \
+  -d '{"code": "someAmazingCode", "email": "john@doe.com"}'
 ```
 
 #### List of voucher codes by email
@@ -71,7 +74,7 @@ curl
 curl -X POST \
   http://your.host/getVouchers \
   -H 'content-type: application/json' \
-  -d '{"email": "sanan@guliev.info"}'
+  -d '{"email": "john@doe.com"}'
 ```
 
 

@@ -2,6 +2,7 @@
 
 namespace Webbala\Infrastructure\Persistence\Doctrine;
 
+use Webbala\Domain\Models\Recipient;
 use Webbala\Domain\Models\Voucher;
 use Webbala\Domain\Voucher\RepositoryInterface;
 
@@ -54,5 +55,21 @@ class VoucherRepository extends AbstractRepository implements RepositoryInterfac
     public function getVoucherById(int $id)
     {
         // TODO: Implement getReportById() method.
+    }
+
+    /**
+     * @param string $code
+     * @param Recipient $recipient
+     *
+     * @return null|object|Voucher
+     */
+    public function getVoucherByCodeAndRecipient(string $code, Recipient $recipient)
+    {
+        return $this->entityManager
+            ->getRepository(Voucher::class)
+            ->findOneBy([
+                'code' => $code,
+                'recipient' => $recipient
+            ]);
     }
 }

@@ -42,4 +42,15 @@ $app->post('/generateVouchers', function ($request, $response, $args) use ($cont
     return $voucherController->generateVouchers($request, $response, $args);
 });
 
+$app->post('/useVoucher', function ($request, $response, $args) use ($container) {
+    /** @var \Webbala\Application\Controllers\VoucherController $voucherController */
+    $voucherController = $container->get(DiKeys::VOUCHER_CONTROLLER);
+    return $voucherController->useVoucher($request, $response, $args);
+});
+
+if (APPLICATION_ENV === 'development'){
+    unset($app->getContainer()['errorHandler']);
+    unset($app->getContainer()['phpErrorHandler']);
+}
+
 $app->run();

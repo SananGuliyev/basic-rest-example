@@ -144,4 +144,47 @@ class VoucherController
         }
         return $response->withJson($result, $status);
     }
+
+    /**
+     * @param Request $request
+     * @param Response $response
+     * @param mixed $args
+     * @return Response
+     */
+    public function useVoucher(Request $request, Response $response, $args)
+    {
+        $params = $request->getParsedBody();
+        $recipient = $this->recipientRepository->getRecipientByEmail($params['email']);
+        if ($recipient){
+            $now = new \DateTime('now');
+            $voucher = $this->voucherRepository->getVoucherByCodeAndRecipient($params['code'], $recipient);
+
+            if ($voucher && $voucher->getExpiration() >= $now){
+                $voucher->setIsUsed(1);
+                $voucher->setUsedAt($now);
+                if ($this->voucherRepository->update($voucher)){
+                    $status = 200;
+                    $result = [
+                        'discount' => $voucher->getOffer()->getDiscount()
+                    ];
+                } else {
+                    $status = 503;
+                    $result = [
+                        'error' => 'Voucher code can not use right now. Please, try again.'
+                    ];
+                }
+            } else {
+                $status = 400;
+                $result = [
+                    'error' => 'Oops... Voucher code expired.'
+                ];
+            }
+        } else {
+            $status = 404;
+            $result = [
+                'error' => 'Recipient not found!'
+            ];
+        }
+        return $response->withJson($result, $status);
+    }
 }
