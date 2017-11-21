@@ -12,11 +12,11 @@ class Factory
      */
     public function createRecipientFromArray(array $data)
     {
-        $offer = new Recipient(
+        $recipient = new Recipient(
             $data['name'],
             $data['email']
         );
 
-        return $offer;
+        return $recipient;
     }
 }

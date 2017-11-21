@@ -10,7 +10,7 @@ We use [Slim Framework](https://www.slimframework.com/) in this example.
 * Doctrine ORM
 
 ### Installation
-####Install composer
+#### Install composer
 ```
 cd /path/to/project/folder
 composer install
@@ -18,7 +18,7 @@ composer install
 
 #### Import dump file to your MySQL
 ```
-/path/to/project/folder/dump/basic-rest.sql
+mysql -u username -p dbname /path/to/project/folder/dump/basic-rest.sql
 ```
 
 #### Add environment variable to your NGINX
@@ -35,17 +35,38 @@ location / {
 nano /path/to/project/folder/src/Application/config/development.yaml
 ```
 
-### Voucher Generator
+### Endpoints
+
+#### Create offer
+```
+curl -X POST \
+  http://your.host/offer \
+  -H 'content-type: application/json' \
+  -d '{"name": "Some amazing offer", "discount": 25}'
+```
+
+#### Create recipient
+```
+curl -X POST \
+  http://your.host/recipient \
+  -H 'content-type: application/json' \
+  -d '{"name": "John Doe", "email": "john@doe.com"}'
+```
+
+#### Voucher Generator
+```
+curl -X POST \
+  http://your.host/generateVouchers \
+  -H 'content-type: application/json' \
+  -d '{"offerId": 1, "expiration": "2017-12-31"}'
+```
+
+#### Voucher checker by email & code
 ```
 curl 
 ```
 
-### Voucher checker by email & code
-```
-curl 
-```
-
-### List of voucher codes by email
+#### List of voucher codes by email
 ```
 curl -X POST \
   http://your.host/getVouchers \
@@ -55,7 +76,9 @@ curl -X POST \
 
 
 ### Next steps
+* Extract routes to own file
 * Extract response creating to own class
 * Implement auth middleware
+* Implement validation for request (never believe to user)
 * Write unit tests
 * Remove dump & implement [Phinx](https://phinx.org) for db migrations

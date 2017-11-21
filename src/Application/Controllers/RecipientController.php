@@ -50,7 +50,7 @@ class RecipientController
 
         $recipient = $this->factory->createRecipientFromArray($params);
 
-        if ($saveResult = $this->recipientRepository->save($recipient)){
+        if ($this->recipientRepository->save($recipient)){
             $status = 200;
             $result = [
                 'status' => 'success'
@@ -58,7 +58,7 @@ class RecipientController
         } else {
             $status = 400;
             $result = [
-                'status' => 'error'
+                'error' => 'Recipient can not create'
             ];
         }
 

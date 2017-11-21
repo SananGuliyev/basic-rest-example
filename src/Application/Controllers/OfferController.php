@@ -48,7 +48,7 @@ class OfferController
 
         $offer = $this->factory->createOfferFromArray($params);
 
-        if ($saveResult = $this->offerRepository->save($offer)){
+        if ($this->offerRepository->save($offer)){
             $status = 200;
             $result = [
                 'status' => 'success'
@@ -56,7 +56,7 @@ class OfferController
         } else {
             $status = 400;
             $result = [
-                'status' => 'error'
+                'error' => 'Offer can not create.'
             ];
         }
 

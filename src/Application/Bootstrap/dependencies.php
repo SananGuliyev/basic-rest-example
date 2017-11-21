@@ -80,6 +80,10 @@ $container[DiKeys::DOCTRINE_ENTITY_MANAGER] = function () use ($container){
     return \Doctrine\ORM\EntityManager::create($connection, $doctrineConfig);
 };
 
+$container[DiKeys::CODE_GENERATOR] = function () use ($container){
+    return new \Webbala\Domain\Services\CodeGenerator();
+};
+
 $container[DiKeys::OFFER_REPOSITORY] = function () use ($container){
     $entityManager = $container->get(DiKeys::DOCTRINE_ENTITY_MANAGER);
     return new \Webbala\Infrastructure\Persistence\Doctrine\OfferRepository($entityManager);
@@ -113,7 +117,9 @@ $container[DiKeys::VOUCHER_CONTROLLER] = function () use ($container){
     return new \Webbala\Application\Controllers\VoucherController(
         $container->get(DiKeys::OFFER_REPOSITORY),
         $container->get(DiKeys::RECIPIENT_REPOSITORY),
-        $container->get(DiKeys::VOUCHER_REPOSITORY)
+        $container->get(DiKeys::VOUCHER_REPOSITORY),
+        new \Webbala\Domain\Voucher\Factory(),
+        $container->get(DiKeys::CODE_GENERATOR)
     );
 };
 

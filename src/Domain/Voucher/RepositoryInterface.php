@@ -12,17 +12,17 @@ interface RepositoryInterface
     public function getAll();
 
     /**
-     * @param int $recipientId
-     * @return Voucher[]
-     */
-    public function getAllByRecipientId(int $recipientId);
-
-    /**
      * @param Voucher $voucher
      *
      * @return bool
      */
     public function save(Voucher $voucher);
+
+    /**
+     * @param array $vouchers
+     * @return bool
+     */
+    public function saveBatch(array $vouchers);
 
     /**
      * @param Voucher $voucher

@@ -17,15 +17,6 @@ class VoucherRepository extends AbstractRepository implements RepositoryInterfac
     }
 
     /**
-     * @param int $recipientId
-     * @return Voucher[]
-     */
-    public function getAllByRecipientId(int $recipientId)
-    {
-        return $this->entityManager->getRepository(Voucher::class)->findBy(['recipientId' => $recipientId]);
-    }
-
-    /**
      * @param Voucher $voucher
      *
      * @return bool
@@ -33,6 +24,16 @@ class VoucherRepository extends AbstractRepository implements RepositoryInterfac
     public function save(Voucher $voucher)
     {
         return parent::saveEntity($voucher);
+    }
+
+    /**
+     * @param array $vouchers
+     *
+     * @return bool
+     */
+    public function saveBatch(array $vouchers)
+    {
+        return parent::saveBatchEntities($vouchers);
     }
 
     /**

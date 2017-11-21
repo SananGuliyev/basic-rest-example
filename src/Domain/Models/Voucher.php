@@ -25,7 +25,7 @@ class Voucher
     private $isUsed;
 
     /**
-     * @var string
+     * @var \DateTime | null
      */
     private $usedAt;
 
@@ -43,10 +43,11 @@ class Voucher
         Offer $offer,
         Recipient $recipient,
         string $code,
-        string $expiration,
+        \DateTime $expiration,
         int $isUsed,
-        string $usedAt
+        $usedAt
     ) {
+        $this->setOffer($offer);
         $this->setRecipient($recipient);
         $this->setCode($code);
         $this->setExpiration($expiration);
@@ -151,17 +152,17 @@ class Voucher
     }
 
     /**
-     * @return string
+     * @return \DateTime | null
      */
-    public function getUsedAt(): string
+    public function getUsedAt()
     {
         return $this->usedAt;
     }
 
     /**
-     * @param string $usedAt
+     * @param \DateTime | null $usedAt
      */
-    public function setUsedAt(string $usedAt)
+    public function setUsedAt($usedAt)
     {
         $this->usedAt = $usedAt;
     }

@@ -36,4 +36,10 @@ $app->post('/getVouchers', function ($request, $response, $args) use ($container
     return $voucherController->getVoucherCodes($request, $response, $args);
 });
 
+$app->post('/generateVouchers', function ($request, $response, $args) use ($container) {
+    /** @var \Webbala\Application\Controllers\VoucherController $voucherController */
+    $voucherController = $container->get(DiKeys::VOUCHER_CONTROLLER);
+    return $voucherController->generateVouchers($request, $response, $args);
+});
+
 $app->run();

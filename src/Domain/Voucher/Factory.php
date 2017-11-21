@@ -12,7 +12,7 @@ class Factory
      */
     public function createVoucherFromArray(array $data)
     {
-        $offer = new Voucher(
+        $voucher = new Voucher(
             $data['offer'],
             $data['recipient'],
             $data['code'],
@@ -21,6 +21,6 @@ class Factory
             $data['usedAt']
         );
 
-        return $offer;
+        return $voucher;
     }
 }

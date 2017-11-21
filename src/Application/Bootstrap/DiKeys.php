@@ -10,6 +10,7 @@ class DiKeys
 {
     const APPLICATION_CONFIG = 'applicationConfig';
     const DOCTRINE_ENTITY_MANAGER = 'doctrineEntityManager';
+    const CODE_GENERATOR = 'codeGenerator';
 
     // Controllers
     const OFFER_CONTROLLER = 'offerController';
