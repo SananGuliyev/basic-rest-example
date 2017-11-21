@@ -11,6 +11,9 @@ class DiKeys
     const APPLICATION_CONFIG = 'applicationConfig';
     const DOCTRINE_ENTITY_MANAGER = 'doctrineEntityManager';
 
+    // Controllers
+    const OFFER_CONTROLLER = 'offerController';
+    const RECIPIENT_CONTROLLER = 'recipientController';
     const VOUCHER_CONTROLLER = 'voucherController';
 
     // Repositories

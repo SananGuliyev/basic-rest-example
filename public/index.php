@@ -18,6 +18,18 @@ $container = include APPLICATION_PATH . 'Bootstrap/dependencies.php';
 
 $app = new \Slim\App($container);
 
+$app->post('/offer', function ($request, $response, $args) use ($container) {
+    /** @var \Webbala\Application\Controllers\OfferController $offerController */
+    $offerController = $container->get(DiKeys::OFFER_CONTROLLER);
+    return $offerController->add($request, $response, $args);
+});
+
+$app->post('/recipient', function ($request, $response, $args) use ($container) {
+    /** @var \Webbala\Application\Controllers\RecipientController $recipientController */
+    $recipientController = $container->get(DiKeys::RECIPIENT_CONTROLLER);
+    return $recipientController->add($request, $response, $args);
+});
+
 $app->post('/getVouchers', function ($request, $response, $args) use ($container) {
     /** @var \Webbala\Application\Controllers\VoucherController $voucherController */
     $voucherController = $container->get(DiKeys::VOUCHER_CONTROLLER);

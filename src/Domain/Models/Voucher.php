@@ -15,7 +15,7 @@ class Voucher
     private $code;
 
     /**
-     * @var string
+     * @var \DateTime
      */
     private $expiration;
 
@@ -119,17 +119,17 @@ class Voucher
     }
 
     /**
-     * @return string
+     * @return \DateTime
      */
-    public function getExpiration(): string
+    public function getExpiration(): \DateTime
     {
         return $this->expiration;
     }
 
     /**
-     * @param string $expiration
+     * @param \DateTime $expiration
      */
-    public function setExpiration(string $expiration)
+    public function setExpiration(\DateTime $expiration)
     {
         $this->expiration = $expiration;
     }

@@ -4,6 +4,7 @@ namespace Webbala\Application\Controllers;
 
 use Slim\Http\Request;
 use Slim\Http\Response;
+use Webbala\Domain\Models\Voucher;
 use Webbala\Domain\Offer\RepositoryInterface as OfferRepositoryInterface;
 use Webbala\Domain\Recipient\RepositoryInterface as RecipientRepositoryInterface;
 use Webbala\Domain\Voucher\RepositoryInterface as VoucherRepositoryInterface;
@@ -60,11 +61,13 @@ class VoucherController
             $result = [
                 'vouchers' => []
             ];
+            /** @var Voucher[] $vouchers */
             $vouchers = $recipient->getVouchers();
             foreach ($vouchers as $voucher) {
                 $result['vouchers'][] = [
+                    'offer' => $voucher->getOffer()->getName(),
                     'code' => $voucher->getCode(),
-                    'offer' => $voucher->getOffer()->getName()
+                    'expiration' => $voucher->getExpiration()->format('Y-m-d')
                 ];
             }
         } else {

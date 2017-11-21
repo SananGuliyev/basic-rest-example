@@ -1,5 +1,7 @@
 <?php
 
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Webbala\Application\Bootstrap\DiKeys;
 
 $container = new \Slim\Container;
@@ -8,8 +10,20 @@ $container[DiKeys::APPLICATION_CONFIG] = function (){
     return yaml_parse_file(APPLICATION_PATH . 'config/' . APPLICATION_ENV . '.yaml');
 };
 
+$container[DiKeys::NOT_FOUND_HANDLER] = function () use ($container){
+    return function (RequestInterface $request, ResponseInterface $response) use ($container) {
+        return $container['response']
+            ->withJson(
+                [
+                    'error' => 'Endpoint Not Found'
+                ],
+                404
+            );
+    };
+};
+
 $container[DiKeys::NOT_ALLOW_HANDLER] = function () use ($container){
-    return function ($request, $response, $methods) use ($container) {
+    return function (RequestInterface $request, ResponseInterface $response, array $methods) use ($container) {
         return $container['response']
             ->withJson(
                 [
@@ -20,24 +34,12 @@ $container[DiKeys::NOT_ALLOW_HANDLER] = function () use ($container){
     };
 };
 
-$container[DiKeys::NOT_FOUND_HANDLER] = function () use ($container){
-    return function ($request, $response, $methods) use ($container) {
-        return $container['response']
-            ->withJson(
-                [
-                    'error' => 'Not Found'
-                ],
-                404
-            );
-    };
-};
-
 $container[DiKeys::SLIM_ERROR_HANDLER] = function () use ($container){
-    return function ($request, $response, $methods) use ($container) {
+    return function (RequestInterface $request, ResponseInterface $response, Exception $exception) use ($container) {
         return $container['response']
             ->withJson(
                 [
-                    'error' => 'Something went wrong!'
+                    'error' => 'Something went wrong!',
                 ],
                 500
             );
@@ -45,7 +47,7 @@ $container[DiKeys::SLIM_ERROR_HANDLER] = function () use ($container){
 };
 
 $container[DiKeys::RUNTIME_ERROR_HANDLER] = function () use ($container){
-    return function ($request, $response, $methods) use ($container) {
+    return function (RequestInterface $request, ResponseInterface $response, Throwable $error) use ($container) {
         return $container['response']
             ->withJson(
                 [
@@ -91,6 +93,20 @@ $container[DiKeys::RECIPIENT_REPOSITORY] = function () use ($container){
 $container[DiKeys::VOUCHER_REPOSITORY] = function () use ($container){
     $entityManager = $container->get(DiKeys::DOCTRINE_ENTITY_MANAGER);
     return new \Webbala\Infrastructure\Persistence\Doctrine\VoucherRepository($entityManager);
+};
+
+$container[DiKeys::OFFER_CONTROLLER] = function () use ($container){
+    return new \Webbala\Application\Controllers\OfferController(
+        $container->get(DiKeys::OFFER_REPOSITORY),
+        new \Webbala\Domain\Offer\Factory()
+    );
+};
+
+$container[DiKeys::RECIPIENT_CONTROLLER] = function () use ($container){
+    return new \Webbala\Application\Controllers\RecipientController(
+        $container->get(DiKeys::RECIPIENT_REPOSITORY),
+        new \Webbala\Domain\Recipient\Factory()
+    );
 };
 
 $container[DiKeys::VOUCHER_CONTROLLER] = function () use ($container){

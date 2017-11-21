@@ -1,7 +1,7 @@
 # ************************************************************
 # Host: 127.0.0.1 (MySQL 5.7.20)
 # Database: basic-rest
-# Generation Time: 2017-11-21 08:06:03 +0000
+# Generation Time: 2017-11-21 21:57:16 +0000
 # ************************************************************
 
 
@@ -17,8 +17,6 @@
 # Dump of table offers
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `offers`;
-
 CREATE TABLE `offers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -26,45 +24,23 @@ CREATE TABLE `offers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `offers` WRITE;
-/*!40000 ALTER TABLE `offers` DISABLE KEYS */;
-
-INSERT INTO `offers` (`id`, `name`, `discount`)
-VALUES
-	(1,'New Year',25);
-
-/*!40000 ALTER TABLE `offers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table recipients
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `recipients`;
-
 CREATE TABLE `recipients` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '',
   `email` varchar(200) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `recipients` WRITE;
-/*!40000 ALTER TABLE `recipients` DISABLE KEYS */;
-
-INSERT INTO `recipients` (`id`, `name`, `email`)
-VALUES
-	(1,'Sanan','sanan@guliev.info'),
-	(2,'Carolin','maiwald@newsletter2go.com');
-
-/*!40000 ALTER TABLE `recipients` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table vouchers
 # ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `vouchers`;
 
 CREATE TABLE `vouchers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -81,16 +57,6 @@ CREATE TABLE `vouchers` (
   CONSTRAINT `vouchers_ibfk_2` FOREIGN KEY (`recipient_id`) REFERENCES `recipients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `vouchers` WRITE;
-/*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
-
-INSERT INTO `vouchers` (`id`, `offer_id`, `recipient_id`, `code`, `expiration`, `is_used`, `used_at`)
-VALUES
-	(1,1,1,'QWERTYUI','2017-12-12',0,NULL),
-	(2,1,1,'ASDFGHJK','2017-12-12',0,NULL);
-
-/*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 

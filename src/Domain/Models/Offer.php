@@ -95,8 +95,9 @@ class Offer
     public function getVouchers($showUsed = false): Collection
     {
         $criteria = Criteria::create();
+        $criteria->where(Criteria::expr()->gte('expiration', new \DateTime('now')));
         if ($showUsed !== true) {
-            $criteria->where(Criteria::expr()->eq('isUsed', 0));
+            $criteria->andWhere(Criteria::expr()->eq('isUsed', 0));
         }
         return $this->vouchers->matching($criteria);
     }
