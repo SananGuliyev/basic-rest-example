@@ -8,5 +8,6 @@
         </id>
         <field name="name" column="name" />
         <field name="email" column="email" />
+        <one-to-many field="vouchers" target-entity="Webbala\Domain\Models\Voucher" mapped-by="recipient" />
     </entity>
 </doctrine-mapping>

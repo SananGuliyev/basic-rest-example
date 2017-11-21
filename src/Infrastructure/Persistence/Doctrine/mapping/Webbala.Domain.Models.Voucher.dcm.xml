@@ -6,11 +6,15 @@
         <id name="id" type="integer">
             <generator />
         </id>
-        <field name="offerId" column="offer_id" />
-        <field name="recipientId" column="recipient_id" />
         <field name="code" column="code" />
         <field name="expiration" column="expiration" type="date" />
         <field name="isUsed" column="is_used" type="integer" />
         <field name="usedAt" column="used_at" type="datetime" />
+        <many-to-one field="offer" target-entity="Webbala\Domain\Models\Offer" inversed-by="vouchers">
+            <join-column name="offer_id" />
+        </many-to-one>
+        <many-to-one field="recipient" target-entity="Webbala\Domain\Models\Recipient" inversed-by="vouchers">
+            <join-column name="recipient_id" />
+        </many-to-one>
     </entity>
 </doctrine-mapping>

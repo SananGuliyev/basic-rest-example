@@ -60,11 +60,11 @@ class VoucherController
             $result = [
                 'vouchers' => []
             ];
-            $vouchers = $this->voucherRepository->getAllByRecipientId($recipient->getId());
+            $vouchers = $recipient->getVouchers();
             foreach ($vouchers as $voucher) {
                 $result['vouchers'][] = [
                     'code' => $voucher->getCode(),
-                    'offer' => $this->offerRepository->getOfferById($voucher->getOfferId())->getName()
+                    'offer' => $voucher->getOffer()->getName()
                 ];
             }
         } else {

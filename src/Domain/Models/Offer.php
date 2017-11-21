@@ -2,6 +2,10 @@
 
 namespace Webbala\Domain\Models;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+
 class Offer
 {
     /**
@@ -20,6 +24,11 @@ class Offer
     private $discount;
 
     /**
+     * @var ArrayCollection
+     */
+    private $vouchers;
+
+    /**
      * Offer constructor.
      * @param string $name
      * @param int $discount
@@ -28,6 +37,7 @@ class Offer
     {
         $this->setName($name);
         $this->setDiscount($discount);
+        $this->vouchers = new ArrayCollection();
     }
 
     /**
@@ -76,5 +86,26 @@ class Offer
     public function setDiscount(int $discount)
     {
         $this->discount = $discount;
+    }
+
+    /**
+     * @param bool $showUsed
+     * @return Collection
+     */
+    public function getVouchers($showUsed = false): Collection
+    {
+        $criteria = Criteria::create();
+        if ($showUsed !== true) {
+            $criteria->where(Criteria::expr()->eq('isUsed', 0));
+        }
+        return $this->vouchers->matching($criteria);
+    }
+
+    /**
+     * @param Voucher $voucher
+     */
+    public function addVoucher(Voucher $voucher)
+    {
+        $this->vouchers[] = $voucher;
     }
 }

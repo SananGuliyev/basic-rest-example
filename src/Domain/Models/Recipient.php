@@ -2,6 +2,10 @@
 
 namespace Webbala\Domain\Models;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+
 class Recipient
 {
     /**
@@ -20,6 +24,11 @@ class Recipient
     private $email;
 
     /**
+     * @var ArrayCollection
+     */
+    private $vouchers;
+
+    /**
      * Recipient constructor.
      * @param string $name
      * @param string $email
@@ -28,6 +37,7 @@ class Recipient
     {
         $this->setName($name);
         $this->setEmail($email);
+        $this->vouchers = new ArrayCollection();
     }
 
     /**
@@ -76,5 +86,26 @@ class Recipient
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @param bool $showUsed
+     * @return Collection
+     */
+    public function getVouchers($showUsed = false): Collection
+    {
+        $criteria = Criteria::create();
+        if ($showUsed !== true) {
+            $criteria->where(Criteria::expr()->eq('isUsed', 0));
+        }
+        return $this->vouchers->matching($criteria);
+    }
+
+    /**
+     * @param Voucher $voucher
+     */
+    public function addVoucher(Voucher $voucher)
+    {
+        $this->vouchers[] = $voucher;
     }
 }

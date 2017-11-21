@@ -10,16 +10,6 @@ class Voucher
     private $id;
 
     /**
-     * @var int
-     */
-    private $offerId;
-
-    /**
-     * @var int
-     */
-    private $recipientId;
-
-    /**
      * @var string
      */
     private $code;
@@ -39,16 +29,29 @@ class Voucher
      */
     private $usedAt;
 
+    /**
+     * @var Offer
+     */
+    private $offer;
+
+    /**
+     * @var Recipient
+     */
+    private $recipient;
+
     public function __construct(
-        int $offerId,
-        int $recipientId,
+        Offer $offer,
+        Recipient $recipient,
         string $code,
         string $expiration,
         int $isUsed,
         string $usedAt
     ) {
-        $this->setOfferId($offerId);
-        $this->setRecipientId($recipientId);
+        $this->setRecipient($recipient);
+        $this->setCode($code);
+        $this->setExpiration($expiration);
+        $this->setIsUsed($isUsed);
+        $this->setUsedAt($usedAt);
     }
 
     /**
@@ -68,35 +71,35 @@ class Voucher
     }
 
     /**
-     * @return int
+     * @return Offer
      */
-    public function getOfferId(): int
+    public function getOffer(): Offer
     {
-        return $this->offerId;
+        return $this->offer;
     }
 
     /**
-     * @param int $offerId
+     * @param Offer $offer
      */
-    public function setOfferId(int $offerId)
+    public function setOffer(Offer $offer)
     {
-        $this->offerId = $offerId;
+        $this->offer = $offer;
     }
 
     /**
-     * @return int
+     * @return Recipient
      */
-    public function getRecipientId(): int
+    public function getRecipient(): Recipient
     {
-        return $this->recipientId;
+        return $this->recipient;
     }
 
     /**
-     * @param int $recipientId
+     * @param Recipient $recipient
      */
-    public function setRecipientId(int $recipientId)
+    public function setRecipient(Recipient $recipient)
     {
-        $this->recipientId = $recipientId;
+        $this->recipient = $recipient;
     }
 
     /**
