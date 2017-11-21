@@ -10,9 +10,29 @@ We use [Slim Framework](https://www.slimframework.com/) in this example.
 * Doctrine ORM
 
 ### Installation
+####Install composer
 ```
 cd /path/to/project/folder
 composer install
+```
+
+#### Import dump file to your MySQL
+```
+/path/to/project/folder/dump/basic-rest.sql
+```
+
+#### Add environment variable to your NGINX
+```
+location / {
+...
+   fastcgi_param   APPLICATION_ENV  development; #APPLICATION_ENV = development
+...
+}
+```
+
+#### Edit configuration file
+```
+nano /path/to/project/folder/src/Application/config/development.yaml
 ```
 
 ### Voucher Generator
@@ -39,3 +59,5 @@ curl -X POST \
 * Implement [One-To-Many, Bidirectional](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/association-mapping.html#one-to-many-bidirectional) & remove stupid extra queries :grin:
 * Extract response creating to own class
 * Implement auth middleware
+* Write unit tests
+* Remove dump & implement [Phinx](https://phinx.org) for db migrations
