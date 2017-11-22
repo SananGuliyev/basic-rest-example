@@ -77,6 +77,10 @@ curl -X POST \
   -d '{"email": "john@doe.com"}'
 ```
 
+### Extra
+
+* You can find [Postman](https://www.getpostman.com/) collection in the dump folder :gift:
+
 
 ### Next steps
 * Extract routes to own file
