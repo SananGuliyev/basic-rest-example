@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./Bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true">
+    <testsuite name="Test suite">
+        <directory>./src/Application/</directory>
+        <directory>./src/Domain/</directory>
+        <directory>./src/Infrastructure/</directory>
+        <exclude>../../src/Application/Bootstrap</exclude>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true" addUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">../../src/Application</directory>
+            <directory suffix=".php">../../src/Domain</directory>
+            <directory suffix=".php">../../src/Infrastructure</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout" showOnlySummary="true"/>
+    </logging>
+</phpunit>
