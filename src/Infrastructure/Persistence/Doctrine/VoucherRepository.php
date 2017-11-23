@@ -54,7 +54,7 @@ class VoucherRepository extends AbstractRepository implements RepositoryInterfac
      */
     public function getVoucherById(int $id)
     {
-        // TODO: Implement getReportById() method.
+        return $this->entityManager->getRepository(Voucher::class)->findOneBy(['id' => $id]);
     }
 
     /**
