@@ -43,7 +43,7 @@ class RecipientRepository extends AbstractRepository implements RepositoryInterf
      */
     public function getRecipientById(int $id)
     {
-        // TODO: Implement getReportById() method.
+        return $this->entityManager->getRepository(Recipient::class)->findOneBy(['id' => $id]);
     }
 
     /**
