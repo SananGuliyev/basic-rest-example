@@ -1,4 +1,7 @@
 ## Basic REST example with DDD
+==============================
+
+[![Build Status](https://travis-ci.org/SananGuliyev/basic-rest-example.svg?branch=master)](https://travis-ci.org/SananGuliyev/basic-rest-example)
 
 ### Description
 This example follow [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) approach. It is maintainable and we can write our tests easily.
