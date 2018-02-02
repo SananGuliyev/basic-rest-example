@@ -7,4 +7,4 @@ before_install:
   - curl -sS https://getcomposer.org/installer | php
   - php composer.phar install
 
-script: ./vendor/phpunit/phpunit/phpunit --configuration ./tests/unittests/phpunit.xml ./tests/unit
+script: bin/phpunit --configuration ./tests/unit/phpunit.xml ./tests/unit
