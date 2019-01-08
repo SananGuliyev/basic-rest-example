@@ -1,0 +1,9 @@
+pipeline:
+  backend:
+    image: php:7.3.0-alpine
+    group: test
+    commands:
+      - php -v
+      - composer -V
+      - composer install 
+      - bin/phpunit --configuration ./tests/unit/phpunit.xml ./tests/unit
