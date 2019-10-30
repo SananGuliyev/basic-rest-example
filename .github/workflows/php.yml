@@ -10,9 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
-
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
 
@@ -20,4 +17,4 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run test suite
-      run: php bin/phpunit --configuration tests/unit/phpunit.xml tests/unit
+      run: bin/phpunit --configuration ./tests/unit/phpunit.xml ./tests/unit
