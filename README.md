@@ -1,4 +1,4 @@
-## Basic REST example with DDD
+## Simple REST example with DDD
 ==============================
 
 [![Build Status](https://travis-ci.org/SananGuliyev/basic-rest-example.svg?branch=master)](https://travis-ci.org/SananGuliyev/basic-rest-example)
